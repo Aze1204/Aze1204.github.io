@@ -22,19 +22,28 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="什么是C++C++ 是什么？💻C++ 是一门 通用编程语言，它可以用来编写各种软件：从你电脑上的游戏、操作系统，到手机 APP，再到大型服务器程序，都可能用到 C++。 它是从 C 语言演变来的，可以说是 C 的升级版，同时加入了 面向对象 的思想，让程序写起来更灵活、更有条理。 简单来说：  C → 强调“程序怎么做”，更接近计算机底层 C++ → 在 C 的基础上加入“对象”和“类”，让代码">
+  <meta name="description" content="什么是C++1️⃣C++ 是什么？💻C++ 是一门 通用编程语言，它可以用来编写各种软件：从你电脑上的游戏、操作系统，到手机 APP，再到大型服务器程序，都可能用到 C++。 它是从 C 语言演变来的，可以说是 C 的升级版，同时加入了 面向对象 的思想，让程序写起来更灵活、更有条理。 简单来说：  C → 强调“程序怎么做”，更接近计算机底层 C++ → 在 C 的基础上加入“对象”和“类”，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Essential C++（一）如何编写C++程序">
 <meta property="og:url" content="http://example.com/2025/10/13/Essential-C++%EF%BC%88%E4%B8%80%EF%BC%89%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99C++%E7%A8%8B%E5%BA%8F/index.html">
 <meta property="og:site_name" content="Aze的小窝">
-<meta property="og:description" content="什么是C++C++ 是什么？💻C++ 是一门 通用编程语言，它可以用来编写各种软件：从你电脑上的游戏、操作系统，到手机 APP，再到大型服务器程序，都可能用到 C++。 它是从 C 语言演变来的，可以说是 C 的升级版，同时加入了 面向对象 的思想，让程序写起来更灵活、更有条理。 简单来说：  C → 强调“程序怎么做”，更接近计算机底层 C++ → 在 C 的基础上加入“对象”和“类”，让代码">
+<meta property="og:description" content="什么是C++1️⃣C++ 是什么？💻C++ 是一门 通用编程语言，它可以用来编写各种软件：从你电脑上的游戏、操作系统，到手机 APP，再到大型服务器程序，都可能用到 C++。 它是从 C 语言演变来的，可以说是 C 的升级版，同时加入了 面向对象 的思想，让程序写起来更灵活、更有条理。 简单来说：  C → 强调“程序怎么做”，更接近计算机底层 C++ → 在 C 的基础上加入“对象”和“类”，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015010546777.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015010702493.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011302425.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011518518.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011705479.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011825151.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011911238.png">
+<meta property="og:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015012114410.png">
 <meta property="article:published_time" content="2025-10-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-10-12T17:36:22.089Z">
+<meta property="article:modified_time" content="2025-10-14T17:22:42.931Z">
 <meta property="article:author" content="Aze">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="内存布局">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015010546777.png">
 
 <link rel="canonical" href="http://example.com/2025/10/13/Essential-C++%EF%BC%88%E4%B8%80%EF%BC%89%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99C++%E7%A8%8B%E5%BA%8F/">
 
@@ -196,10 +205,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-13 00:00:00 / 修改时间：01:36:22" itemprop="dateCreated datePublished" datetime="2025-10-13T00:00:00+08:00">2025-10-13</time>
+              <time title="创建时间：2025-10-13 00:00:00" itemprop="dateCreated datePublished" datetime="2025-10-13T00:00:00+08:00">2025-10-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-15 01:22:42" itemprop="dateModified" datetime="2025-10-15T01:22:42+08:00">2025-10-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -221,20 +236,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="什么是C"><a href="#什么是C" class="headerlink" title="什么是C++"></a>什么是C++</h2><h3 id="C-是什么？"><a href="#C-是什么？" class="headerlink" title="C++ 是什么？"></a>C++ 是什么？</h3><p>💻C++ 是一门 <strong>通用编程语言</strong>，它可以用来编写各种软件：从你电脑上的游戏、操作系统，到手机 APP，再到大型服务器程序，都可能用到 C++。</p>
+        <h2 id="什么是C"><a href="#什么是C" class="headerlink" title="什么是C++"></a>什么是C++</h2><h3 id="1️⃣C-是什么？"><a href="#1️⃣C-是什么？" class="headerlink" title="1️⃣C++ 是什么？"></a>1️⃣C++ 是什么？</h3><p>💻C++ 是一门 <strong>通用编程语言</strong>，它可以用来编写各种软件：从你电脑上的游戏、操作系统，到手机 APP，再到大型服务器程序，都可能用到 C++。</p>
 <p>它是从 C 语言演变来的，可以说是 <strong>C 的升级版</strong>，同时加入了 <strong>面向对象</strong> 的思想，让程序写起来更灵活、更有条理。</p>
 <p>简单来说：</p>
 <ul>
 <li><strong>C</strong> → 强调“程序怎么做”，更接近计算机底层</li>
 <li><strong>C++</strong> → 在 C 的基础上加入“对象”和“类”，让代码更容易管理、重用</li>
 </ul>
-<h3 id="为什么要学-C-？"><a href="#为什么要学-C-？" class="headerlink" title="为什么要学 C++？"></a>为什么要学 C++？</h3><p><strong>🚀高性能</strong><br> C++ 程序执行速度快，能够控制电脑硬件资源。这也是为什么很多游戏引擎（比如 Unreal Engine）都是用 C++ 写的。</p>
+<h3 id="2️⃣为什么要学-C-？"><a href="#2️⃣为什么要学-C-？" class="headerlink" title="2️⃣为什么要学 C++？"></a>2️⃣为什么要学 C++？</h3><p><strong>🚀高性能</strong><br> C++ 程序执行速度快，能够控制电脑硬件资源。这也是为什么很多游戏引擎（比如 Unreal Engine）都是用 C++ 写的。</p>
 <p><strong>🔧基础扎实</strong><br> 学会 C++ 后，你会对 <strong>内存管理、数据结构、算法</strong> 有很深的理解，这对后续学习任何编程语言都很有帮助。</p>
 <p><strong>🛠️工业应用广泛</strong><br> 大厂项目、嵌入式系统、图形渲染、游戏开发等都离不开 C++。学好它，你就有能力参与很多真正的项目。 </p>
 <blockquote>
 <p>💡不管是大家平时玩的王者荣耀，还是3A等游戏，背后都离不开C++。</p>
 </blockquote>
-<h3 id="C-能做什么？"><a href="#C-能做什么？" class="headerlink" title="C++ 能做什么？"></a>C++ 能做什么？</h3><p><strong>🌟图形引擎</strong>：Unreal Engine 等游戏引擎</p>
+<h3 id="3️⃣C-能做什么？"><a href="#3️⃣C-能做什么？" class="headerlink" title="3️⃣C++ 能做什么？"></a>3️⃣C++ 能做什么？</h3><p><strong>🌟图形引擎</strong>：Unreal Engine 等游戏引擎</p>
 <p><strong>🌟操作系统</strong>：Windows、Linux 某些核心模块</p>
 <p><strong>🌟高性能软件</strong>：数据库、视频编解码、金融交易系统</p>
 <p>总结一句话：</p>
@@ -261,7 +276,45 @@
 <p>💡C++ 的面向对象就像在游戏里创造“角色模版”，每个角色都是一个对象，它们有自己的属性和技能，可以独立行动，也可以互相作用。</p>
 </blockquote>
 <p><strong>并且学好了C++，在学别的语言上手也是非常快的&#x3D;w&#x3D;</strong></p>
-<h2 id="IDE安装教程"><a href="#IDE安装教程" class="headerlink" title="IDE安装教程"></a>IDE安装教程</h2><h2 id="VS布局调整"><a href="#VS布局调整" class="headerlink" title="VS布局调整"></a>VS布局调整</h2><h2 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h2><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2>
+<h2 id="IDE安装教程"><a href="#IDE安装教程" class="headerlink" title="IDE安装教程"></a>IDE安装教程</h2><h3 id="1️⃣IDE是什么"><a href="#1️⃣IDE是什么" class="headerlink" title="1️⃣IDE是什么"></a>1️⃣IDE是什么</h3><p><strong>IDE</strong> 是英文 <strong>Integrated Development Environment</strong> 的缩写，意思是 <strong>集成开发环境</strong>。</p>
+<p>通俗地说，IDE 就是一个<strong>专门帮你写代码的工具箱</strong>，它把写代码需要的各种功能都放在一个地方，方便又高效。</p>
+<p>你可以把它想成是——<br> 👉 <strong>写代码的“超级记事本” + 智能助手 + 调试工具</strong> 的组合。</p>
+<hr>
+<h3 id="举个例子："><a href="#举个例子：" class="headerlink" title="举个例子："></a>举个例子：</h3><p>如果你只是用记事本写代码，就像拿铅笔在纸上写文章，<br> 写完了还得自己想办法运行、找错、改错，非常麻烦。</p>
+<p>而 IDE 就像一个<strong>带拼写检查、语法高亮、自动补全、运行按钮和调试器</strong>的“智能写作软件”。</p>
+<p>如果是自己写代码，想要运行的话需要一系列<strong>CMD命令</strong>，不过在IDE里，只需要点击一个神奇的按钮就可以快捷的运行代码。</p>
+<h3 id="常见功能包括："><a href="#常见功能包括：" class="headerlink" title="常见功能包括："></a>常见功能包括：</h3><ol>
+<li>🧠 <strong>语法高亮</strong>：不同的代码部分有不同颜色，看起来更清晰。</li>
+<li>✍️ <strong>自动补全</strong>：你写一半，它能帮你补全变量或函数名。</li>
+<li>🐞 <strong>调试</strong>：可以一步一步运行程序，找出哪里出错。</li>
+<li>⚙️ <strong>一键运行</strong>：不用切命令行，直接点“运行”按钮就能看到结果。</li>
+<li>📁 <strong>项目管理</strong>：帮你管理文件、资源和依赖。</li>
+</ol>
+<blockquote>
+<p>💡DE &#x3D; 写代码 + 运行代码 + 找错改错 一站式工具。<br>对新手来说，它能帮你省掉很多麻烦，让你更专注在学习编程本身。</p>
+</blockquote>
+<p>本次我们要下载的是宇宙第一IDE —<strong>Visual Studio</strong>。</p>
+<h3 id="2️⃣下载Visual-Studio"><a href="#2️⃣下载Visual-Studio" class="headerlink" title="2️⃣下载Visual Studio"></a>2️⃣下载<strong>Visual Studio</strong></h3><p>首先要打开VS的官方下载网址<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/">Visual Studio: 适用于软件开发的 IDE 和代码编辑器</a>。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015010546777.png" alt="image-20251015010546777"></p>
+<p>Visual Studio目前有三个版本，分别是<strong>Visual Studio Community</strong>，<strong>Professional &#x2F; Enterprise</strong>，第一个是免费版，我们在学习的过程中用这个就足够了。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015010702493.png" alt="image-20251015010702493"></p>
+<p>滑动滚轮到下面这个界面，在下拉列表中选择<strong>Visual Studio Community</strong>，接下来等待下载完成即可。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011302425.png" alt="image-20251015011302425"></p>
+<p>在 <strong>Visual Studio Installer</strong> 里面，选择上图的选项，这是我们能够正常运行C++的基础。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011518518.png" alt="image-20251015011518518"></p>
+<p>如果不想安装在C盘的话，可以在这里做一些更改。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011705479.png" alt="image-20251015011705479"></p>
+<p>完成这些之后，就可以正常启动VS了😎</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011825151.png" alt="image-20251015011825151"></p>
+<p>我们点击<strong>创建新项目</strong>。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015011911238.png" alt="image-20251015011911238"></p>
+<p>选择<strong>空项目</strong>，如果这里没有C++相关选项的话，那就是 <strong>Visual Studio Installer</strong> 里面的<strong>工作负荷</strong>没有安装好，重新安装好即可。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20251015012114410.png" alt="image-20251015012114410"></p>
+<p>取一个自己喜欢的名字然后点击<strong>创建</strong>，就可以正常启动项目啦！</p>
+<blockquote>
+<p>💡奇妙的C++之旅即将开启</p>
+</blockquote>
+<h2 id="VS布局调整"><a href="#VS布局调整" class="headerlink" title="VS布局调整"></a>VS布局调整</h2><h2 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h2><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2>
     </div>
 
     
@@ -342,7 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFC"><span class="nav-number">1.</span> <span class="nav-text">什么是C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">C++ 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6-C-%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要学 C++？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">C++ 能做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="nav-number">1.4.</span> <span class="nav-text">面向对象初体验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDE%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">IDE安装教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS%E5%B8%83%E5%B1%80%E8%B0%83%E6%95%B4"><span class="nav-number">3.</span> <span class="nav-text">VS布局调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E4%BD%93"><span class="nav-number">4.</span> <span class="nav-text">修改字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">5.</span> <span class="nav-text">Hello World</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFC"><span class="nav-number">1.</span> <span class="nav-text">什么是C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3C-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1️⃣C++ 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6-C-%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">2️⃣为什么要学 C++？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3C-%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">3️⃣C++ 能做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="nav-number">1.4.</span> <span class="nav-text">面向对象初体验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDE%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">IDE安装教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3IDE%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">1️⃣IDE是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">举个例子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8A%9F%E8%83%BD%E5%8C%85%E6%8B%AC%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">常见功能包括：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3%E4%B8%8B%E8%BD%BDVisual-Studio"><span class="nav-number">2.4.</span> <span class="nav-text">2️⃣下载Visual Studio</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS%E5%B8%83%E5%B1%80%E8%B0%83%E6%95%B4"><span class="nav-number">3.</span> <span class="nav-text">VS布局调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E4%BD%93"><span class="nav-number">4.</span> <span class="nav-text">修改字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">5.</span> <span class="nav-text">Hello World</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
