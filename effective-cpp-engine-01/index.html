@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ue-master-aze.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="《Effective C++》条款1原文所表达的意思是，C++不仅仅是C的增强版，它是由多个较小语言部分组成的“联邦”——有C的那部分，有面向对象编程的那部分，有模板编程的那部分，还有STL库，以至于每一部分的规则、最佳实践、陷阱都不尽相同。 What’s mean？🤔  C++不是一个单一风格语言。 各部分如：C风格、类&#x2F;继承、模板、STL等，语法规则&#x2F;最佳实践都有区别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="条款01：视C++为语言联邦">
+<meta property="og:url" content="https://ue-master-aze.top/effective-cpp-engine-01/index.html">
+<meta property="og:site_name" content="Aze的小窝">
+<meta property="og:description" content="《Effective C++》条款1原文所表达的意思是，C++不仅仅是C的增强版，它是由多个较小语言部分组成的“联邦”——有C的那部分，有面向对象编程的那部分，有模板编程的那部分，还有STL库，以至于每一部分的规则、最佳实践、陷阱都不尽相同。 What’s mean？🤔  C++不是一个单一风格语言。 各部分如：C风格、类&#x2F;继承、模板、STL等，语法规则&#x2F;最佳实践都有区别。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-25T09:00:44.000Z">
+<meta property="article:modified_time" content="2026-02-25T10:10:09.752Z">
+<meta property="article:author" content="Aze">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Unreal Engine">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ue-master-aze.top/effective-cpp-engine-01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>条款01：视C++为语言联邦 | Aze的小窝</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Aze的小窝</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ue-master-aze.top/effective-cpp-engine-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Aze">
+      <meta itemprop="description" content="目标是成为Unreal Engine大师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aze的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          条款01：视C++为语言联邦
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-02-25 17:00:44 / 修改时间：18:10:09" itemprop="dateCreated datePublished" datetime="2026-02-25T17:00:44+08:00">2026-02-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Effective-C-%E5%BC%95%E6%93%8E%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">Effective C++引擎编程实践</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>《Effective C++》条款1原文所表达的意思是，C++不仅仅是C的增强版，它是由多个较小语言部分组成的“联邦”——<strong>有C的那部分，有面向对象编程的那部分，有模板编程的那部分，还有STL库，以至于每一部分的规则、最佳实践、陷阱都不尽相同</strong>。</p>
+<p>What’s mean？🤔</p>
+<ul>
+<li>C++不是一个单一风格语言。</li>
+<li>各部分如：C风格、类&#x2F;继承、模板、STL等，语法规则&#x2F;最佳实践都有区别。</li>
+<li>工程实践时要清楚你用到的是哪一“部分”，思维不能混淆。</li>
+</ul>
+<p>拿UE动画模块来看，“四大联邦”经常存在。</p>
+<h2 id="C风格部分"><a href="#C风格部分" class="headerlink" title="C风格部分"></a>C风格部分</h2><p>C风格部分的<strong>核心用途</strong>就是批量高效地处理数据，尤其是数学运算、结构体变换、数值拷贝，而不是复杂的对象管理。动画系统是性能密集型场景，每帧数据量巨大，所以用结构体、数组、裸指针等传统C语言手法来实现高效运算和内存布局。</p>
+<p>在 C++ 的“C 风格联邦”中，<strong>核心关注点不是对象语义，而是数据布局、访问模式和执行效率</strong>。</p>
+<p>为什么不用OOP呢🤔</p>
+<p>OOP适合资源管理、接口设计等，而底层动画计算&#x2F;数据搬运更适合用C风格，无虚表、无GC、更贴近硬件。</p>
+<p>C风格典型代码也是和数据操作相关。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>(BlueprintType)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ANIMATIONDATACONTROLLER_API</span> UAnimDataController : <span class="keyword">public</span> UObject, <span class="keyword">public</span> IAnimationDataController</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">bool</span> SetTransformCurveKeys</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">UAnimDataController::SetTransformCurveKeys</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"><span class="type">const</span> FAnimationCurveIdentifier&amp; CurveId, </span></span></span><br><span class="line"><span class="params"><span class="function"><span class="type">const</span> TArray&lt;FTransform&gt;&amp; TransformValues, </span></span></span><br><span class="line"><span class="params"><span class="function"><span class="type">const</span> TArray&lt;<span class="type">float</span>&gt;&amp; TimeKeys, </span></span></span><br><span class="line"><span class="params"><span class="function"><span class="type">bool</span> bShouldTransact <span class="comment">/*= true*/</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (int32 KeyIndex = <span class="number">0</span>; KeyIndex &lt; TransformValues.<span class="built_in">Num</span>(); ++KeyIndex)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">const</span> FTransform&amp; Value = TransformValues[KeyIndex];</span><br><span class="line">        <span class="type">const</span> <span class="type">float</span>&amp; Time = TimeKeys[KeyIndex];</span><br><span class="line">    </span><br><span class="line">        <span class="type">const</span> FVector Translation = Value.<span class="built_in">GetLocation</span>();</span><br><span class="line">        <span class="type">const</span> FVector Rotation = Value.<span class="built_in">GetRotation</span>().<span class="built_in">Euler</span>();</span><br><span class="line">        <span class="type">const</span> FVector Scale = Value.<span class="built_in">GetScale3D</span>();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// ...把每一维的float写到ChannelKeys数组</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个代码里，极大量用结构体、用数组去处理数据，并且数据是批量并行处理，没有复杂的对象间关系，堆内数组按键数分配，生命周期完全由局部逻辑管控。</p>
+<p>在这个代码里是非常典型的批量结构体处理，逐项应用变换，计算过程不涉及对象层的复杂性，只处理数据。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">FKeys</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">FKeys</span>(int32 NumKeys)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (int32 ChannelIndex = <span class="number">0</span>; </span><br><span class="line">            ChannelIndex &lt; <span class="number">3</span>; </span><br><span class="line">            ++ChannelIndex)</span><br><span class="line">		&#123;</span><br><span class="line">			ChannelKeys[ChannelIndex].<span class="built_in">SetNum</span>(NumKeys);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	TArray&lt;FRichCurveKey&gt; ChannelKeys[<span class="number">3</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>FKeys</code>这个临时 struct，也是只装数据，没有虚函数或继承。</p>
+<p><code>ChannelKeys[ChannelIndex][KeyIndex] = FRichCurveKey(...)</code>，直接用下标，堆内连续数据，更容易优化。</p>
+<p>上述代码就是在写**“C风格”联邦的动画控制代码**：结构体加数组加for循环，不需要面向对象。只需要关心 Transform 的各个 float 数据，每一个 channel 都是 float 数组，无需 OOP，也不玩模板泛型。这样的代码，就是为了性能、内存管理、更贴近硬件优化。</p>
+<p>比如传入 <code>FAnimationCurveIdentifier</code>、通过 <code>Model-&gt;FindMutableTransformCurveById()</code> 获取曲线，就是在用对象、接口来找资源、做封装。这是“面向对象”部分。</p>
+<p>再比如 <code>SetCurveKeys</code> 调用，是模块接口（OOP层）和数据层（C风格）之间的桥梁。</p>
+<p><strong>为什么这么设计？</strong></p>
+<p>UE 的动画系统这里做的是“曲线批量设置”，都用结构体加数字数组处理，性能最优、代码干净。</p>
+<p>曲线驱动（Curve Driven）动画核心就是把很多 float 组广泛写入，通过底层数据优化达到高效动画效果。</p>
+<p><code>TArray&lt;FTransform&gt;</code>是业务层的面向对象设计（动画资源的接口），而落到“批量变换”这一点，全部按 C 派习惯处理。</p>
+<h2 id="C-风格部分"><a href="#C-风格部分" class="headerlink" title="C++风格部分"></a>C++风格部分</h2><p>C++（面向对象）联邦：负责“资源、生命周期与系统边界”。如果说动画系统中的 <strong>C 风格联邦</strong>负责“怎么快”，<br> 那么 <strong>C++ 面向对象联邦</strong>负责的就是“<strong>谁在用、什么时候用、用到哪一步</strong>”。</p>
+<p>在 UE 动画模块中，这一部分代码<strong>几乎不参与具体的动画数值计算</strong>，而是承担以下职责：</p>
+<ul>
+<li>动画资源的生命周期管理</li>
+<li>编辑器 &#x2F; 运行时的系统边界隔离</li>
+<li>模块接口与职责划分</li>
+<li>Undo &#x2F; Redo、事务、依赖追踪</li>
+<li>多系统如动画、骨骼、曲线、Sequencer的协作</li>
+</ul>
+<p>这些问题，用 C 风格是<strong>完全不合适的</strong>，必须使用 C++ 的对象模型。</p>
+<p>关于<strong>UE 动画模块中的 OOP 使用边界</strong>，我们先看一个非常典型的入口类：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>(BlueprintType)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ANIMATIONDATACONTROLLER_API</span> UAnimDataController </span><br><span class="line">    : <span class="keyword">public</span> UObject</span><br><span class="line">    , <span class="keyword">public</span> IAnimationDataController</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这一层的关键点不在于“它能干什么计算”，而在于：它是 <strong>UObject</strong>，它实现了 <strong>接口（Interface）</strong>，它参与 <strong>反射、GC、事务系统</strong>。这已经清楚地表明它属于 C++ 面向对象联邦，而不是 C 风格联邦。</p>
+<p><strong>为什么动画系统必须有这一层 OOP？</strong></p>
+<p>首先，<strong>动画数据是“资源”，不是临时数据</strong>，动画曲线、关键帧、骨骼轨道这些需要需要被编辑器引用需要被保存 &#x2F; 回滚，需要被多个系统共享，生命周期可能跨越数小时甚至整个项目。</p>
+<p>这类数据的特征是：<strong>生命周期长、引用复杂、所有权必须清晰</strong>。这是典型的 <strong>OOP + 引擎对象系统</strong> 擅长的领域。</p>
+<p>**OOP 在动画模块中“刻意不下沉”**一个非常重要、但容易被忽略的设计点是：<strong>UE 动画系统中的 OOP，刻意不深入到数据处理内部。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (int32 KeyIndex = <span class="number">0</span>; KeyIndex &lt; TransformValues.<span class="built_in">Num</span>(); ++KeyIndex)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> FTransform&amp; Value = TransformValues[KeyIndex];</span><br><span class="line">    <span class="type">const</span> <span class="type">float</span>&amp; Time = TimeKeys[KeyIndex];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这里面没有没有虚函数，没有多态，没有“Key 对象”，没有“Channel 类”。<strong>这些都不是遗漏，而是刻意避免。</strong></p>
+<p>原因很简单，因为每一帧都要跑，每个动画都有，Key 数量巨大，虚函数、对象拆分、间接访问都会被放大成性能成本。</p>
+<h2 id="模板部分"><a href="#模板部分" class="headerlink" title="模板部分"></a>模板部分</h2><p><strong>Template（泛型）联邦：用于“编译期规则”，而不是运行期行为</strong>。</p>
+<p>如果说，<strong>C 风格联邦</strong>解决的是 “怎么跑得快”，<strong>C++ 面向对象联邦</strong>解决的是 “谁负责、谁持有、谁调用”，那么 <strong>Template 联邦</strong>在 UE 动画模块中解决的，是第三类问题——“<strong>规则是否成立”、“类型是否允许”、“逻辑是否在编译期就能被限制住”</strong>。它关注的不是数据本身，也不是对象关系，而是<strong>类型系统与编译期约束</strong>。</p>
+<p>在《Effective C++》的视角下，Template并不是“更高级的多态工具”，而是一个<strong>完全不同的问题域</strong>。</p>
+<p>我们先明确一件事情：<strong>模板的核心价值，从来不在于“能不能抽象”，而在于能不能在编译期解决问题。</strong></p>
+<p><strong>模板本质上解决的是什么问题？</strong></p>
+<p>其实从语言层面来看，模板做的事情只有三类：</p>
+<ol>
+<li><p><strong>类型参数化</strong></p>
+<blockquote>
+<p>这个逻辑对一组确定的类型成立</p>
+</blockquote>
+</li>
+<li><p><strong>编译器分支</strong></p>
+<blockquote>
+<p>当类型满足某些条件时，生成不同的代码</p>
+</blockquote>
+</li>
+<li><p><strong>编译期约束</strong></p>
+<blockquote>
+<p>不满足条件的类型，根本不允许通过编译</p>
+</blockquote>
+</li>
+</ol>
+<p>这里有一个关键词——“<strong>编译期</strong>”。也就是说，模板并不关心对象的生命周期，运行期的组合关系，多态行为的动态变化。这些是OOP的问题域，而不是模板的。</p>
+<p>在 UE 动画系统中，模板<strong>极少</strong>用于抽象算法表达，运行期多态，实现“泛型动画节点”。</p>
+<p>在直觉上，我们可能会觉得“<strong>AnimNode 很适合模板</strong>”，但实际上并不合适。很多人看到AnimGraph，会自然想到——这么多 AnimNode，不就是同一套逻辑作用在不同类型上吗？那为什么不用 <code>template </code> 呢？</p>
+<p>这个直觉<strong>从语法层面是合理的</strong>，但从<strong>引擎系统层面是错误的</strong>。</p>
+<p>AnimNode 的核心需求是节点在运行期<strong>动态连接</strong>，节点类型由 <strong>蓝图 &#x2F; 编辑器决定</strong>，节点实例由 <strong>反射系统构建</strong>，每一帧通过统一接口执行。有几个关键词非常重要：<strong>运行期、动态、反射、统一入口</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">FAnimNode_Base</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Evaluate_AnyThread</span><span class="params">(FPoseContext&amp; Output)</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>从UE的基础定义来看，这里的设计选择非常明确。</p>
+<p>在 AnimGraph 中，“用哪个动画节点”并不是在 C++ 编译时确定的，而是在<strong>运行期</strong>由动画蓝图资产决定的。具体来说、动画蓝图里放了哪些节点、节点之间如何连接，每个节点当前是否启用。这些信息都来自编辑器中的蓝图配置、运行时加载的动画资产、甚至运行时的状态切换。</p>
+<p>动画系统需要一种机制，让<strong>不同类型的节点在运行期都能通过同一个接口被调用</strong>。</p>
+<p>这正是<strong>运行期多态</strong>要解决的问题。</p>
+<p>如果试图用模板改写 AnimNode，会立刻遇到很多麻烦。<strong>模板无法表达“运行期节点图”</strong>。AnimGraph 是<strong>运行期可配置的节点网络</strong>，而模板要求<strong>类型在编译期完全确定</strong>，这两者在本质上是冲突的。</p>
+<p>那我们看下面的代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Helper function to convert the input for GetActions to a list that can be used for delegates */</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="type">static</span> TArray&lt;TWeakObjectPtr&lt;T&gt;&gt; <span class="built_in">GetTypedWeakObjectPtrs</span>(<span class="type">const</span> TArray&lt;UObject*&gt;&amp; InObjects)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">check</span>(InObjects.<span class="built_in">Num</span>() &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    TArray&lt;TWeakObjectPtr&lt;T&gt;&gt; TypedObjects;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> ObjIt = InObjects.<span class="built_in">CreateConstIterator</span>(); ObjIt; ++ObjIt)</span><br><span class="line">    &#123;</span><br><span class="line">        TypedObjects.<span class="built_in">Add</span>(<span class="built_in">CastChecked</span>&lt;T&gt;(*ObjIt));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TypedObjects;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>先解释一下作用：<strong>把一组 <code>UObject*</code>，在“已经确信类型正确”的前提下，转换成指定类型的 <code>TWeakObjectPtr</code> 数组。</strong></p>
+<p>这个函数解决的是一个<strong>非常具体、非常局部</strong>的问题：输入类型是 <code>UObject*</code>，实际语义上“它们都是某种具体类型 T”，希望得到一个<strong>类型安全的结果列表</strong>，并且避免写大量重复代码。</p>
+<p><strong>为什么这里“适合用模板”？</strong></p>
+<p>关键在于：<strong>这个函数的“变化点”只有一个——类型 T</strong>。类型在调用点是确定的，当我们调用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> TypedNodes = <span class="built_in">GetTypedWeakObjectPtrs</span>&lt;UAnimGraphNode_Base&gt;(SelectedObjects);</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>T</code>在<strong>编译期就已经完全确定</strong>，不依赖运行期逻辑以及不由用户配置或资产决定。这正是模板最擅长使用的场景。</p>
+<p>这个模板不参与运行期行为，不保存状态，不定义对象生命周期，不参与动画更新，不进入任何热路径，仅仅是一个**“类型安全的转换工具”**。</p>
+<blockquote>
+<p>💡UE 中的模板，通常用于“让已经确定的事情更安全”，而不是“推迟决定”。</p>
+</blockquote>
+<h2 id="STL部分"><a href="#STL部分" class="headerlink" title="STL部分"></a>STL部分</h2><p>说真的，UE在有意避免STL。</p>
+<p>在 C++ 的“语言联邦”中，STL是一个非常特殊的存在。如果说<strong>C 风格联邦</strong>关注的是数据与性能；<strong>C++ 面向对象联邦</strong>关注的是系统与生命周期；<strong>Template 联邦</strong>关注的是编译期规则；<strong>STL 联邦</strong>关注的核心问题就是如何用一组标准化的容器和算法，解决“通用程序”的数据组织问题。</p>
+<p>STL 的目标从一开始就非常明确——标准、通用、可移植、对大多数程序足够友好。</p>
+<p>而正是这一点，让它和 UE 这样的游戏引擎，在设计目标上逐渐分道扬镳。</p>
+<p>STL 到底解决了什么问题？</p>
+<p>以 <code>std::vector</code>、<code>std::set</code>、<code>std::map</code> 为代表的 STL 容器，解决的是这样一类问题：数据规模不确定，使用场景多样，性能需求“合理即可”，行为必须符合标准语义。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; Values;</span><br><span class="line">Values.<span class="built_in">push_back</span>(<span class="number">10</span>);</span><br><span class="line">Values.<span class="built_in">push_back</span>(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们不需要关心内存怎么分配，是否跨平台，在哪个编译器下表现如何。STL 的设计哲学是**把复杂性隐藏在标准之后，让使用者“放心用”。**这在应用程序、工具、库代码中非常成功。</p>
+<p>但UE 面临的问题，和 STL 的设计前提不同。UE 并不是“普通应用程序”，而是一个跨平台引擎，编辑器 + 运行时共存并且强工具链依赖。UE 面临的不是这样写会不会方便，而是这样写<strong>是否可预测、可追踪、可被引擎理解。</strong></p>
+<p>最关键的冲突是<strong>内存管理</strong>。对于STL来说<strong>内存是实现细节</strong>，我们无法确定扩容策略是否一致，不同平台 &#x2F; 编译器下行为是否完全相同。即使 C++ 标准允许自定义 allocator，在一个<strong>数百万行代码、跨多个 STL 实现的引擎里</strong>，这仍然是不可控的。</p>
+<p>对于UE来说，内存必须是**“可控系统”**</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TArray&lt;FTransform&gt; Transforms;</span><br></pre></td></tr></table></figure>
+
+<p>这意味着所有内存来自 UE 的内存系统，可以用来统计、分析、调优，可以在编辑器中可视化，可以针对动画、渲染做专项优化。在UE层面。<strong>内存不是容器的私事，而是整个引擎的核心资源</strong>。</p>
+<p>从性能模型来看，STL 是**“通用最优”<strong>，UE 要</strong>“场景最优”**。</p>
+<p>STL 容器的优化目标是，在不知道你要拿它干什么的前提下，尽量快。</p>
+<p>UE 的容器设计目标是，我非常清楚你是做动画、渲染、物理，我为此优化。</p>
+<blockquote>
+<p>💡STL 是 C++ 的一个子语言，而 UE 并不总是在这个子语言中工作。</p>
+</blockquote>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>其实从上面我们也可以看出，UE 并不是**“用 C++”<strong>，而是</strong>“选择性地使用 C++”**。</p>
+<p>回到《Effective C++》条款 01，“把 C++ 视为一个语言联邦”，在 UE 的动画模块中并不是一句抽象的设计哲学，而是一套<strong>非常具体、可感知的工程实践</strong>。</p>
+<p><strong>C 风格联邦</strong>用于高频、批量的数据处理，追求确定的内存布局和极致性能。</p>
+<p><strong>C++ 面向对象联邦</strong>用于系统边界、资源生命周期与模块协作。</p>
+<p><strong>Template 联邦</strong>用于编译期规则、类型约束与错误前置。</p>
+<p><strong>STL 联邦</strong>则被刻意限制在引擎核心之外，只在通用工具和外围代码中使用。</p>
+<p>或许真正重要的不是**“会不会用 C++ 的所有特性”**，而是你是否清楚：<strong>正在解决的这个问题，应该站在哪一个语言联邦里思考。</strong></p>
+<p>这正是《Effective C++》条款 01 在 UE 动画系统中的真实含义。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/Unreal-Engine/" rel="tag"># Unreal Engine</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/index/" rel="prev" title="欢迎光临Aze的小窝">
+      <i class="fa fa-chevron-left"></i> 欢迎光临Aze的小窝
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C%E9%A3%8E%E6%A0%BC%E9%83%A8%E5%88%86"><span class="nav-text">C风格部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E9%A3%8E%E6%A0%BC%E9%83%A8%E5%88%86"><span class="nav-text">C++风格部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E9%83%A8%E5%88%86"><span class="nav-text">模板部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E9%83%A8%E5%88%86"><span class="nav-text">STL部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Aze</p>
+  <div class="site-description" itemprop="description">目标是成为Unreal Engine大师</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2025-10 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aze</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
